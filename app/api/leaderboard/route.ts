@@ -2,8 +2,6 @@ import { NextResponse } from 'next/server';
 import { getSupabase } from '../../../lib/supabase';
 import { maskStudentId } from '../../../lib/validation';
 
-export const dynamic = 'force-dynamic';
-
 export async function GET() {
   try {
     const { data, error } = await getSupabase()
