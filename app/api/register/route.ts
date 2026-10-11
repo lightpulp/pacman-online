@@ -26,7 +26,7 @@ export async function POST(req: Request) {
       .single();
 
     if (error) {
-      if (error.code === '23505') return fail('This Student ID is already registered', 409);
+      if (error.code === '23505') return fail('This Student ID is already registered. Use "Log in" instead.', 409);
       console.error('register error', error);
       return fail('Could not register right now', 500);
     }

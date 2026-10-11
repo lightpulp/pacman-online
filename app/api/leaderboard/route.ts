@@ -1,8 +1,9 @@
-import { NextResponse } from 'next/server';
+import { NextResponse, connection } from 'next/server';
 import { getSupabase } from '../../../lib/supabase';
 import { maskStudentId } from '../../../lib/validation';
 
 export async function GET() {
+  await connection(); // opt out of build-time prerendering so scores are always fresh
   try {
     const { data, error } = await getSupabase()
       .from('students')
@@ -14,7 +15,7 @@ export async function GET() {
 
     if (error) {
       console.error('leaderboard error', error);
-      return NextResponse.json({ error: 'Could not load leaderboard' }, { status: 500 });
+      return NextResponse.json({ error: `Database error: ${error.message}` }, { status: 500 });
     }
 
     const entries = (data ?? []).map((r) => ({

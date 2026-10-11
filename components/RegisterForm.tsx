@@ -10,10 +10,17 @@ interface Props {
 }
 
 export default function RegisterForm({ onRegistered, onLeaderboard }: Props) {
+  const [mode, setMode] = useState<'register' | 'login'>('register');
   const [name, setName] = useState('');
   const [studentId, setStudentId] = useState('');
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const isLogin = mode === 'login';
+
+  function switchMode() {
+    setMode(isLogin ? 'register' : 'login');
+    setError('');
+  }
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
@@ -24,16 +31,16 @@ export default function RegisterForm({ onRegistered, onLeaderboard }: Props) {
 
     setBusy(true);
     try {
-      const res = await fetch('/api/register', {
+      const res = await fetch(isLogin ? '/api/login' : '/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: n, studentId }),
       });
       const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Registration failed');
+      if (!res.ok) throw new Error(data.error || (isLogin ? 'Login failed' : 'Registration failed'));
       onRegistered({ studentId: data.studentId, name: data.name, token: data.token });
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Registration failed');
+      setError(err instanceof Error ? err.message : 'Something went wrong');
     } finally {
       setBusy(false);
     }
@@ -42,15 +49,15 @@ export default function RegisterForm({ onRegistered, onLeaderboard }: Props) {
   return (
     <form className="card" onSubmit={submit} noValidate>
       <h1 className="title">PAC-MAN</h1>
-      <p className="muted center">Register to play</p>
+      <p className="muted center">{isLogin ? 'Log in with your name and Student ID' : 'Register to play'}</p>
 
       <label>
-        Student Name
+        {isLogin ? 'Name (username)' : 'Student Name'}
         <input value={name} onChange={(e) => setName(e.target.value)} maxLength={40} autoComplete="name" placeholder="Juan Dela Cruz" />
       </label>
 
       <label>
-        Student ID
+        {isLogin ? 'Student ID (password)' : 'Student ID'}
         <input
           value={studentId}
           onChange={(e) => setStudentId(formatStudentId(e.target.value))}
@@ -64,7 +71,10 @@ export default function RegisterForm({ onRegistered, onLeaderboard }: Props) {
       {error && <p className="error">{error}</p>}
 
       <button className="btn primary" disabled={busy}>
-        {busy ? 'Registering…' : 'Register'}
+        {busy ? 'Please wait…' : isLogin ? 'Log in' : 'Register'}
+      </button>
+      <button type="button" className="btn link" onClick={switchMode}>
+        {isLogin ? 'New here? Register' : 'Already registered? Log in'}
       </button>
       <button type="button" className="btn" onClick={onLeaderboard}>
         View Leaderboard
