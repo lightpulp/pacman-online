@@ -27,7 +27,7 @@ interface Ent { x: number; y: number; dx: number; dy: number }
 interface Pac extends Ent { next: Dir | null; face: Dir }
 interface Ghost extends Ent {
   id: number;
-  sprite: 1 | 2;
+  sprite: 1 | 2 | 3 | 4;
   color: string;
   state: GhostState;
   scared: boolean;
@@ -46,8 +46,8 @@ export interface GameHooks {
 const GHOST_DEFS = [
   { sprite: 1 as const, color: '#ff2a2a', start: { x: 13, y: 11 }, corner: { x: 25, y: 0 }, delay: 0 },
   { sprite: 2 as const, color: '#ffb8ff', start: { x: 13, y: 14 }, corner: { x: 2, y: 0 }, delay: 1.5 },
-  { sprite: 1 as const, color: '#00e5ff', start: { x: 11, y: 14 }, corner: { x: 27, y: 30 }, delay: 4 },
-  { sprite: 2 as const, color: '#ffb852', start: { x: 16, y: 14 }, corner: { x: 0, y: 30 }, delay: 7 },
+  { sprite: 3 as const, color: '#00e5ff', start: { x: 11, y: 14 }, corner: { x: 27, y: 30 }, delay: 4 },
+  { sprite: 4 as const, color: '#ffb852', start: { x: 16, y: 14 }, corner: { x: 0, y: 30 }, delay: 7 },
 ];
 
 export class Game {
