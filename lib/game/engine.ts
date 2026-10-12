@@ -40,7 +40,7 @@ interface Ghost extends Ent {
 export interface GameHooks {
   onSound: (name: SoundName) => void;
   onHud: (hud: { score: number; lives: number }) => void;
-  onFinish: (result: { score: number; won: boolean }) => void;
+  onFinish: (result: { score: number; won: boolean; lives: number }) => void;
 }
 
 const GHOST_DEFS = [
@@ -69,7 +69,8 @@ export class Game {
   private ghosts: Ghost[] = [];
   private wallLayer: HTMLCanvasElement | null = null;
 
-  constructor(private hooks: GameHooks, private assets: AssetMap) {
+  constructor(private hooks: GameHooks, private assets: AssetMap, startLives = 3) {
+    this.lives = startLives;
     for (const row of this.grid) for (const c of row) if (c === '.' || c === 'o') this.dotsLeft++;
     this.resetPositions();
   }
@@ -126,7 +127,7 @@ export class Game {
         this.timer -= dt;
         if (this.timer <= 0 && !this.finished) {
           this.finished = true;
-          this.hooks.onFinish({ score: this.score, won: this.won });
+          this.hooks.onFinish({ score: this.score, won: this.won, lives: this.lives });
         }
         break;
     }

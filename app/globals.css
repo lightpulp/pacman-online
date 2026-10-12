@@ -1,12 +1,5 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body {
-  height: 100%;
-  background: #000;
-  color: #fff;
-  font-family: 'Courier New', ui-monospace, monospace;
-  overscroll-behavior: none;
-  -webkit-tap-highlight-color: transparent;
-}
+html { min-height: 100%; background: var(--bg); }
 
 .screen {
   min-height: 100dvh;
@@ -130,18 +123,25 @@ input:focus { border-color: #ffe600; }
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  z-index: 0;
   color: var(--ink);
   font-family: 'Press Start 2P', ui-monospace, monospace;
-  background:
-    radial-gradient(circle at 15% 10%, rgba(230,60,240,.28), transparent 40%),
-    radial-gradient(circle at 85% 90%, rgba(46,168,255,.25), transparent 45%),
-    var(--bg);
 }
 
 /* halftone dots like the shirt */
+body::after {
+  content: '';
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(230,60,240,.28), transparent 40%),
+    radial-gradient(circle at 85% 90%, rgba(46,168,255,.25), transparent 45%);
+}
+
 body::before {
   content: '';
-  position: fixed; inset: 0; pointer-events: none; opacity: .18;
+  position: fixed; inset: 0; z-index: -1; pointer-events: none; opacity: .18;
   background-image: radial-gradient(var(--magenta) 1.5px, transparent 1.6px);
   background-size: 14px 14px;
   mask-image: linear-gradient(135deg, #000 0%, transparent 40%);
@@ -196,7 +196,6 @@ input:focus { border-color: var(--msd-yellow); box-shadow: 0 0 0 3px rgba(245,21
 .btn:disabled { opacity: .6; cursor: wait; }
 
 /* ---------- game ---------- */
-.game { width: min(96vw, 460px); margin: 0 auto; padding: 8px; touch-action: none; }
 .hud {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
   padding: 8px 12px; margin-bottom: 8px; font-size: 11px;

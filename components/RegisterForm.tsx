@@ -53,7 +53,6 @@ export default function RegisterForm({ onRegistered, onLeaderboard }: Props) {
     <p className="muted center">
       Multimedia &amp; Systems Development
     </p>
-    <p className="muted center">{isLogin ? 'Log in with your name and Student ID' : 'Register to play'}</p>
       <p className="muted center">{isLogin ? 'Log in with your name and Student ID' : 'Register to play'}</p>
 
       <label>
