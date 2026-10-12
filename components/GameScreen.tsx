@@ -143,6 +143,7 @@ export default function GameScreen({ student, onExit, onLeaderboard }: Props) {
       <div className="hud">
         <span>SCORE {hud.score}</span>
         <span className="lives">{'●'.repeat(Math.max(hud.lives, 0))}</span>
+        <img className="hud-logo" src="/brand/msd-logo.png" alt="MSD" />
         <span className="hud-btns">
           <button onClick={toggleMute} aria-label="Toggle sound">{muted ? '🔇' : '🔊'}</button>
           <button onClick={onExit} aria-label="Quit">✕</button>
@@ -154,6 +155,7 @@ export default function GameScreen({ student, onExit, onLeaderboard }: Props) {
 
         {!started && (
           <div className="overlay">
+            <img className="brand-logo" src="/brand/msd-logo.png" alt="MSD" />
             <h2 className="title small">READY?</h2>
             <p className="muted">Swipe (mobile) or use arrow keys (PC)</p>
             <button className="btn primary" onClick={begin}>Start Game</button>
@@ -162,6 +164,7 @@ export default function GameScreen({ student, onExit, onLeaderboard }: Props) {
 
         {result && (
           <div className="overlay">
+            <p className="muted">CREATE · DESIGN · INSPIRE</p>
             <h2 className="title small">{result.won ? 'YOU WIN!' : 'GAME OVER'}</h2>
             <p className="big">{result.score}</p>
             {submit.status === 'sending' && <p className="muted">Saving score…</p>}

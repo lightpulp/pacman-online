@@ -1,5 +1,9 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
+import { Press_Start_2P } from 'next/font/google';
+const pixel = Press_Start_2P({ weight: '400', subsets: ['latin'], display: 'swap' });
+// <body className={pixel.className}>
+
 
 export const metadata: Metadata = {
   title: 'Pac-Man Online',

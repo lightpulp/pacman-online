@@ -30,6 +30,7 @@ export default function Leaderboard({ onBack }: { onBack: () => void }) {
 
   return (
     <div className="card">
+      <img className="brand-logo" src="/brand/msd-logo.png" alt="MSD" />
       <h1 className="title small">TOP 10</h1>
 
       {error && <p className="error">{error}</p>}

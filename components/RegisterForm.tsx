@@ -48,7 +48,12 @@ export default function RegisterForm({ onRegistered, onLeaderboard }: Props) {
 
   return (
     <form className="card" onSubmit={submit} noValidate>
-      <h1 className="title">PAC-MAN</h1>
+          <img className="brand-hero" src="/brand/msd-shirt.png" alt="MSD – Create, Design, Inspire" />
+    <h1 className="title">MSD PAC-MAN</h1>
+    <p className="muted center">
+      Multimedia &amp; Systems Development
+    </p>
+    <p className="muted center">{isLogin ? 'Log in with your name and Student ID' : 'Register to play'}</p>
       <p className="muted center">{isLogin ? 'Log in with your name and Student ID' : 'Register to play'}</p>
 
       <label>
